@@ -6,11 +6,18 @@
 /*   By: ebodart <ebodart@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 09:42:01 by ebodart           #+#    #+#             */
-/*   Updated: 2021/02/22 15:28:22 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/02/28 13:03:38 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+int ft_free_and_return(char **keep, char *buf, int fd)
+{
+	ft_free(&keep[fd]);
+	free(buf);
+	return (-1);
+}
 
 int		ft_find_newline(const char *s, int c)
 {
@@ -36,16 +43,25 @@ int		ft_fill_line(char **keep, char **line, int fd)
 	if (idx != -1 && keep[fd][idx] == '\n')
 	{
 		if (!(*line = ft_substr(keep[fd], 0, idx)))
+		{
+			ft_free(&keep[fd]);
 			return (-1);
+		}
 		if (!(tmp = ft_substr(keep[fd], idx + 1, ft_strlen(keep[fd]))))
+		{
+			ft_free(&keep[fd]);
 			return (-1);
+		}
 		ft_free(&keep[fd]);
 		keep[fd] = tmp;
 	}
 	else
 	{
 		if (!(*line = ft_strdup(keep[fd])))
+		{
+			ft_free(&keep[fd]);
 			return (-1);
+		}
 		ft_free(&keep[fd]);
 		return (0);
 	}
@@ -60,7 +76,7 @@ char	*ft_update_static(char **keep, char *buf, int fd)
 		if (!(keep[fd] = ft_strdup("")))
 			return (NULL);
 	if (!(tmp = ft_strjoin(keep[fd], buf)))
-		return (NULL);
+			return (NULL);
 	ft_free(&keep[fd]);
 	keep[fd] = tmp;
 	return (keep[fd]);
@@ -79,7 +95,7 @@ int		get_next_line(int fd, char **line)
 	{
 		buf[input] = '\0';
 		if (!(keep[fd] = ft_update_static(keep, buf, fd)))
-			return (-1);
+			return (ft_free_and_return(keep, buf, fd));
 		if (ft_find_newline(keep[fd], '\n') > -1)
 			break ;
 	}

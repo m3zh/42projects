@@ -6,7 +6,7 @@
 /*   By: ebodart <ebodart@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:32:35 by ebodart           #+#    #+#             */
-/*   Updated: 2021/02/22 16:15:25 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/02/28 12:59:22 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@
 int		get_next_line(int fd, char **line);
 int		ft_find_newline(const char *s, int c);
 int		ft_fill_line(char **keep, char **line, int fd);
+int		ft_free_and_return(char **keep, char *buf, int fd);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(const char *src);
 char	*ft_update_static(char **keep, char *buf, int fd);
-size_t	ft_strlen(const char *str);
 void	ft_free(char **line);
+size_t	ft_strlen(const char *str);
 
 #endif
