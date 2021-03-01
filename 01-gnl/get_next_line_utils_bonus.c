@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlissoir <vlissoir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: ebodart <ebodart@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:22:44 by ebodart           #+#    #+#             */
-/*   Updated: 2021/02/22 16:15:45 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/03/01 14:36:29 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 	return (r);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*r;
 	int		l;

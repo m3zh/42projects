@@ -6,7 +6,7 @@
 /*   By: ebodart <ebodart@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:22:44 by ebodart           #+#    #+#             */
-/*   Updated: 2021/02/22 11:57:53 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/03/01 14:38:59 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 	return (r);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*r;
 	int		l;
@@ -62,6 +62,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	i = 0;
 	if (!s1 || !s2)
 		return (NULL);
+	if (!s1)
+		return (s2);
 	l = (int)ft_strlen(s1) + (int)ft_strlen(s2);
 	if (!(r = (char *)malloc(sizeof(char) * (l + 1))))
 		return (NULL);

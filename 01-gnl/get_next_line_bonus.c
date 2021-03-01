@@ -6,17 +6,16 @@
 /*   By: ebodart <ebodart@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 09:42:01 by ebodart           #+#    #+#             */
-/*   Updated: 2021/02/28 13:03:34 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/03/01 14:46:36 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-int ft_free_and_return(char **keep, char *buf, int fd)
+int ft_free_and_return(char **keep, int ret)
 {
-	ft_free(&keep[fd]);
-	free(buf);
-	return (-1);
+	ft_free(keep);
+	return (ret);
 }
 
 int		ft_find_newline(const char *s, int c)
@@ -29,8 +28,6 @@ int		ft_find_newline(const char *s, int c)
 	while (ret[++i])
 		if (ret[i] == (char)c)
 			return (i);
-	if (ret[i] == c)
-		return (i);
 	return (-1);
 }
 
@@ -74,9 +71,13 @@ char	*ft_update_static(char **keep, char *buf, int fd)
 
 	if (!keep[fd])
 		if (!(keep[fd] = ft_strdup("")))
-			return (NULL);
+		 	return (NULL);
 	if (!(tmp = ft_strjoin(keep[fd], buf)))
-			return (NULL);
+	{
+		ft_free(&keep[fd]);
+		free(buf);
+		return (NULL);
+	}
 	ft_free(&keep[fd]);
 	keep[fd] = tmp;
 	return (keep[fd]);
@@ -90,12 +91,12 @@ int		get_next_line(int fd, char **line)
 
 	if (BUFFER_SIZE <= 0 || fd < 0 || fd > FOPEN_MAX || !line
 			|| !(buf = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1)))
-		return (-1);
+		return (ft_free_and_return(keep, -1));
 	while ((input = read(fd, buf, BUFFER_SIZE)) > 0)
 	{
 		buf[input] = '\0';
 		if (!(keep[fd] = ft_update_static(keep, buf, fd)))
-			return (ft_free_and_return(keep, buf, fd));
+			return (-1);
 		if (ft_find_newline(keep[fd], '\n') > -1)
 			break ;
 	}
