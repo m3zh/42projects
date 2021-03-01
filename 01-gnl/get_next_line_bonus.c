@@ -6,7 +6,7 @@
 /*   By: ebodart <ebodart@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 09:42:01 by ebodart           #+#    #+#             */
-/*   Updated: 2021/03/01 14:46:36 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/03/01 18:03:08 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,16 @@ int		ft_fill_line(char **keep, char **line, int fd)
 	if (idx != -1 && keep[fd][idx] == '\n')
 	{
 		if (!(*line = ft_substr(keep[fd], 0, idx)))
-		{
-			ft_free(&keep[fd]);
-			return (-1);
-		}
+			return (ft_free_and_return(keep, -1));
 		if (!(tmp = ft_substr(keep[fd], idx + 1, ft_strlen(keep[fd]))))
-		{
-			ft_free(&keep[fd]);
-			return (-1);
-		}
+			return (ft_free_and_return(keep, -1));
 		ft_free(&keep[fd]);
 		keep[fd] = tmp;
 	}
 	else
 	{
 		if (!(*line = ft_strdup(keep[fd])))
-		{
-			ft_free(&keep[fd]);
-			return (-1);
-		}
+			return (ft_free_and_return(keep, -1));
 		ft_free(&keep[fd]);
 		return (0);
 	}
@@ -70,8 +61,13 @@ char	*ft_update_static(char **keep, char *buf, int fd)
 	char *tmp;
 
 	if (!keep[fd])
+	{
 		if (!(keep[fd] = ft_strdup("")))
-		 	return (NULL);
+		{
+			free(buf);
+			return (NULL);
+		}
+	}
 	if (!(tmp = ft_strjoin(keep[fd], buf)))
 	{
 		ft_free(&keep[fd]);
