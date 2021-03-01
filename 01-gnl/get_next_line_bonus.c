@@ -6,7 +6,7 @@
 /*   By: ebodart <ebodart@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 09:42:01 by ebodart           #+#    #+#             */
-/*   Updated: 2021/03/01 18:03:08 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/03/01 18:10:39 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ char	*ft_update_static(char **keep, char *buf, int fd)
 	{
 		if (!(keep[fd] = ft_strdup("")))
 		{
-			free(buf);
+			if (buf)
+				free(buf);
 			return (NULL);
 		}
 	}
